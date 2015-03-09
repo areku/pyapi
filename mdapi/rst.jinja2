@@ -1,0 +1,42 @@
+{{ module.name }}
+=================
+
+{{ module.documentation }}
+
+{% for c in module.get(TYPE_SPECIAL_VAR) %}* *{{ c.name }}:* {{ c.documentation }}
+{% endfor %}
+
+{% if module.get(TYPE_VAR) %}
+* Variables: {% for c in module.get(TYPE_VAR) %}
+    * {{ c.name }}{% endfor %}{% endif %}
+* Classes {% for c in module.get(TYPE_CLASS) %}
+    * {{ c.name }}{% endfor %}
+* Functions: {% for c in module.get(TYPE_FUNCTION) %}
+    * {{ c.name }}{% endfor %}
+
+{% for var in module.get(TYPE_VAR) %}
+{{ var.name }}
+--------------
+
+{{ var.documentation|indent(8) }}
+{% endfor %}
+
+
+{% for c in module.get(TYPE_CLASS) %}
+{{ c.name }}
+--------------
+
+{{ c.documentation }}
+
+  {% for field in c.get(TYPE_VAR) %}
+  * {{ field.name }}
+    {{ field.documentation|indent(4) }}{% endfor %}
+  {% for field in c.get(TYPE_FUNCTION) %}
+   * **`{{ field.name }}`**`{{ field.argspec }}`
+     {{ field.documentation|indent(4) }}{% endfor %}
+{% endfor %}
+
+{% for field in module.get(TYPE_FUNCTION) %}
+## **`{{ field.name }}`**`{{ field.argspec }}`
+   {{ field.documentation|indent(3) }}
+{% endfor %}
