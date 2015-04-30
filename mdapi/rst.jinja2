@@ -6,6 +6,13 @@
 {% for c in module.get(TYPE_SPECIAL_VAR) %}* *{{ c.name }}:* {{ c.documentation }}
 {% endfor %}
 
+{% if module.get(TYPE_MODULE) %}
+* Modules: {% for c in module.get(TYPE_MODULE) %}
+    * {{ c.name }}{% endfor %}{% endif %}
+{% if module.get(TYPE_MODULE) %}
+* Packages: {% for c in module.get(TYPE_PACKAGE) %}
+    * {{ c.name }}{% endfor %}{% endif %}
+
 {% if module.get(TYPE_VAR) %}
 * Variables: {% for c in module.get(TYPE_VAR) %}
     * {{ c.name }}{% endfor %}{% endif %}
